@@ -9,13 +9,14 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import os
 from pathlib import Path
-
+from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+env_path = ".env"
+load_dotenv(dotenv_path=env_path)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -29,8 +30,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +38,31 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+THIRD_PARTY_APPS = [
+    'rest_framework',
+    # 'drf_yasg',
+    # 'corsheaders',
+    # 'mptt',
+    # 'ckeditor',
+    # 'ckeditor_uploader',
+    # 'django_prometheus',
+    # 'imagekit',
+    # 'django_loki'
+    # 'import_export',
+    # 'debug_toolbar',
+    # 'django_filters',
+    # 'easyaudit',
+    # 'django_celery_results',
+    # 'django_celery_beat',
+]
+LOCAL_APPS = [
+    'common',
+    # 'district',
+    # 'user',
+    # 'road',
+    # 'reports',
+]
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -68,19 +93,52 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'common_projects.wsgi.application'
-
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if os.getenv("PRODUCTION_DB") == 'True':
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            # "ENGINE": "django_prometheus.db.backends.postgresql",
+            "NAME": os.getenv("POSTGRES_DB"),
+            "USER": os.getenv("POSTGRES_USER"),
+            "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+            "HOST": os.getenv("POSTGRES_HOST"),
+            "PORT": os.getenv("POSTGRES_PORT"),
+        }
     }
-}
 
+    # CACHES = {
+    #     "default": {
+    #         "BACKEND": "django_redis.cache.RedisCache",
+    #         "LOCATION": "redis://redis/1",
+    #         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+    #     }
+    # }
+
+    SESSION_CACHE_ALIAS = "default"
+    # SESSION_COOKIE_AGE = 365 * 24 * 60 * 60
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3', )
+        }
+    }
+
+SESSION_COOKIE_AGE = 1800
+SESSION_SAVE_EVERY_REQUEST = True
+
+if os.getenv("EMAIL_URL", ""):
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, EMAIL_HOST, EMAIL_PORT = re.match(  # type: ignore
+        r"^email://(?P<username>.*)\:(?P<password>.*?)\@(?P<host>.*?)\:(?P<port>\d+)\/?$",
+        os.getenv("EMAIL_URL", ""),
+    ).groups()
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+WSGI_APPLICATION = 'common_projects.wsgi.application'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

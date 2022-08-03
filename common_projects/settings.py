@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,13 +22,16 @@ load_dotenv(dotenv_path=env_path)
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o8l+%n2vkfw)j78+!i5r5la==y8uskir$@=%l=g(f$0#)4f2hv'
+SECRET_KEY = os.getenv("SECRET_KEY", "override me")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = (os.getenv('DEBUG', 'False') == 'True')
+DEBUG = True  # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = []
-
+# TODO: Change your domain names here.
+ALLOWED_HOSTS = ['*']
+# TODO: Change the default "from" email here.
+DEFAULT_FROM_EMAIL = "me@mydomain.com"
 
 # Application definition
 DJANGO_APPS = [
@@ -94,7 +98,6 @@ TEMPLATES = [
 ]
 
 # Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 if os.getenv("PRODUCTION_DB") == 'True':
     DATABASES = {
         "default": {
@@ -126,8 +129,8 @@ else:
         }
     }
 
-SESSION_COOKIE_AGE = 1800
-SESSION_SAVE_EVERY_REQUEST = True
+# SESSION_COOKIE_AGE = 1800
+# SESSION_SAVE_EVERY_REQUEST = True
 
 if os.getenv("EMAIL_URL", ""):
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -158,7 +161,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -169,7 +171,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/

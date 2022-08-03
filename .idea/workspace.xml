@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a6390697-871e-430f-9ef2-2e0619966a5a" name="Changes" comment="first commit">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/common_projects.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/common/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common_projects/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/common_projects/settings.py" afterDir="false" />
@@ -82,7 +74,7 @@
       <option name="presentableId" value="Default" />
       <updated>1659448970467</updated>
       <workItem from="1659448984554" duration="2989000" />
-      <workItem from="1659501514870" duration="2182000" />
+      <workItem from="1659501514870" duration="1845000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1659449168789</created>

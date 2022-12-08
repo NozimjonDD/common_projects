@@ -26,7 +26,6 @@ media
 
 ### Django.Python Stack ###
 # Byte-compiled / optimized / DLL files
-# Compiled Python bytecode
 *.py[cod]
 *$py.class
 

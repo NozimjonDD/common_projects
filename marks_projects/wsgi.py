@@ -1,5 +1,5 @@
 """
-WSGI config for common_projects project.
+WSGI config for marks_projects project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'common_projects.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'marks_projects.settings')
 
 application = get_wsgi_application()

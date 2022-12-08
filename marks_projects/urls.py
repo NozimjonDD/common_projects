@@ -1,4 +1,4 @@
-"""common_projects URL Configuration
+"""marks_projects URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -17,8 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 
-from common_projects import settings
-from common_projects.settings import DEBUG
+from marks_projects import settings
+from marks_projects.settings import DEBUG
 from django.urls import path, include
 
 urlpatterns = [

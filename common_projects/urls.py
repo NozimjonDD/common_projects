@@ -22,7 +22,7 @@ from common_projects.settings import DEBUG
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('mark/', admin.site.urls),
     # path('api/v1/', include('api.v1.urls')),
     path('api/', include('main.urls')),
 

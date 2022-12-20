@@ -1,7 +1,7 @@
 import mimetypes
 from pathlib import Path
 
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError  # error status 500 qaytadi
 from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.core.validators import RegexValidator
 from django.template.defaultfilters import filesizeformat
@@ -107,7 +107,7 @@ def validate_json(value):
         raise ValidationError("This field must not be empty.")
 
 
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError # error status 400 qaytadi
 
 
 def img_check(value):

@@ -51,4 +51,6 @@ class RequestCheckingCreationAdmin(admin.ModelAdmin):
         'cross_setting_id',
         'cross_title',
         'data',
+        'updated_at',
+        'created_at',
     ]

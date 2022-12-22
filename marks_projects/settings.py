@@ -29,7 +29,9 @@ SECRET_KEY = os.getenv("SECRET_KEY", "override me")
 DEBUG = True  # SECURITY WARNING: don't run with debug turned on in production!
 
 # TODO: Change your domain names here.
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
+
 # TODO: Change the default "from" email here.
 DEFAULT_FROM_EMAIL = "me@mydomain.com"
 

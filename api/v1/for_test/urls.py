@@ -7,4 +7,8 @@ urlpatterns = [
     path('teacher/create/', views.TeacherCreateAPIView.as_view()),
     path('teacher/<int:pk>/update/', views.TeacherUpdateAPIView.as_view()),
 
+    # send Email
+    path('email/', views.SendEmail.as_view()),
+
+
 ]

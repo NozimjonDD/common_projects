@@ -25,7 +25,7 @@ from django.urls import path, include
 urlpatterns = [
     path('mark/', admin.site.urls),
     path('api/v1/', include('api.v1.urls')),
-    path('api/', include('main.urls')),
+    path('api/main/', include('main.urls')),
     path('websocket/', include('api.v1.ws_urlpatterns')),
     path('', home, name="home"),
 

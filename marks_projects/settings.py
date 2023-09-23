@@ -26,7 +26,8 @@ SECRET_KEY = os.getenv("SECRET_KEY", "override me")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = (os.getenv('DEBUG', 'False') == 'True')
-DEBUG = True  # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.getenv('DEBUG') == 'True'  # SECURITY WARNING: don't run with debug turned on in production!
+print(bool(DEBUG))
 
 # TODO: Change your domain names here.
 ALLOWED_HOSTS = ['*']
@@ -139,18 +140,30 @@ else:
         }
     }
 
+# ---------------------------------------- Email settings-------------------------------------
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587  # for TLS
+MAIL_USE_SSL = True
+#EMAIL_PORT = 465  # for SSL
+
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = 'mgie bdkm cnqk szns'
+
 # SESSION_COOKIE_AGE = 1800
 # SESSION_SAVE_EVERY_REQUEST = True
 
-if os.getenv("EMAIL_URL", ""):
-    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-    EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, EMAIL_HOST, EMAIL_PORT = re.match(  # type: ignore
-        r"^email://(?P<username>.*)\:(?P<password>.*?)\@(?P<host>.*?)\:(?P<port>\d+)\/?$",
-        os.getenv("EMAIL_URL", ""),
-    ).groups()
-else:
-    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# if os.getenv("EMAIL_URL", ""):
+#     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+#     EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, EMAIL_HOST, EMAIL_PORT = re.match(  # type: ignore
+#         r"^email://(?P<username>.*)\:(?P<password>.*?)\@(?P<host>.*?)\:(?P<port>\d+)\/?$",
+#         os.getenv("EMAIL_URL", ""),
+#     ).groups()
+# else:
+#     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+# ----------------------------WSGI_APPLICATION-------------------------------
 WSGI_APPLICATION = 'marks_projects.wsgi.application'  # Web Server Gateway Interface
 # ASGI_APPLICATION = 'marks_projects.routing.ws_application'  # Asynchronous Server Gateway Interface
 ASGI_APPLICATION = 'marks_projects.asgi.ws_application'  # Asynchronous Server Gateway Interface
@@ -212,3 +225,35 @@ MEDIA_ROOT = os.path.join("media")
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# --------------------------------ERROR--DEBUG--LOGS-------------------------------------------
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": True,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+        },
+    },
+    "handlers": {
+        "console": {"class": "logging.StreamHandler"},
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.getenv('APP_LOG_PATH', 'logs/app.log'),
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 5,
+            'formatter': 'standard',
+        },
+    },
+    "loggers": {
+        "": {
+            "handlers": ["file"],
+            "level": os.getenv("DJANGO_LOG_LEVEL", "DEBUG"),
+        },
+        "django": {
+            "handlers": ["console", "file"],
+            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+        }
+    },
+}

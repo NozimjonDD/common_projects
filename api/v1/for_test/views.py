@@ -3,7 +3,11 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.generics import (
     CreateAPIView, UpdateAPIView
 )
+from django.core.mail import EmailMultiAlternatives, send_mail
+from django.utils.html import strip_tags
 from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from api.v1.for_test.serializers import TeacherCreateSeializer
 from for_test.models import *
@@ -13,6 +17,7 @@ from for_test.models import *
 #     permission_classes = [AllowAny, ]
 #     queryset = Teacher.objects.all()
 #     serializer_class = TeacherCreateSeializer
+from marks_projects import settings
 
 
 def home(request):
@@ -72,3 +77,32 @@ class TeacherUpdateAPIView(UpdateAPIView):
         )
 
         return instance
+
+
+class SendEmail(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        recipient_list = data['email']
+        html_content = f'<h5>Ваша заявка принята. Ключевые слова для проверки результата заявки: {2323232} </h5> ' \
+                       f'<br>' \
+                       f"<h2>Sizning murojaatingiz qabul qilindi. Murojaat natijasini tekshirish uchun kalit so'z: {232323} </h2>"
+        plain_content = strip_tags(html_content)
+        email = EmailMultiAlternatives(
+            subject='That’s your subject',
+            body=plain_content,
+            from_email='pythonmark101@gmail.com',
+            to=[recipient_list],
+        )
+        email.attach_alternative(html_content, 'text/html')
+        email.send()
+
+        # ------------------2nd method-----------------------------------
+        # subject = 'Thank you for registering to our site'
+        # message = plain_content
+        # email_from = settings.EMAIL_HOST_USER
+        # recipient_list = [recipient_list, ]
+        # send_mail(subject, message, email_from, recipient_list)
+
+        return Response(f'Report Sent to {recipient_list}', status=201)

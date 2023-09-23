@@ -16,3 +16,9 @@ class SiteRequestCheckingCreationView(CreateAPIView):
     permission_classes = [AllowAny, ]
     queryset = RequestCheckingCreation.objects.all()
     serializer_class = SiteRequestCheckingCreationSeializer
+
+
+class SiteRequestCheckingListView(ListAPIView):
+    permission_classes = [AllowAny, ]
+    queryset = RequestCheckingCreation.objects.all()
+    serializer_class = SiteRequestCheckingCreationSeializer

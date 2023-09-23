@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 
+from api.v1.for_test.views import home
 from marks_projects import settings
 from marks_projects.settings import DEBUG
 from django.urls import path, include
@@ -25,6 +26,8 @@ urlpatterns = [
     path('mark/', admin.site.urls),
     path('api/v1/', include('api.v1.urls')),
     path('api/', include('main.urls')),
+    path('websocket/', include('api.v1.ws_urlpatterns')),
+    path('', home, name="home"),
 
 ]
 if DEBUG:

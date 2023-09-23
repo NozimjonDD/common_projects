@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from for_test.models import RequestCheckingCreation
+from for_test.models import *
 
 """examples"""
 
@@ -51,6 +51,29 @@ class RequestCheckingCreationAdmin(admin.ModelAdmin):
         'cross_setting_id',
         'cross_title',
         'data',
+        'updated_at',
+        'created_at',
+    ]
+
+
+@admin.register(Teacher)
+class TeacherAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'name',
+        'course',
+        'updated_at',
+        'created_at',
+    ]
+
+
+@admin.register(Student)
+class StudentAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'teacher',
+        'name',
+        'course',
         'updated_at',
         'created_at',
     ]

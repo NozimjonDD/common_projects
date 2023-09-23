@@ -29,8 +29,10 @@ SECRET_KEY = os.getenv("SECRET_KEY", "override me")
 DEBUG = True  # SECURITY WARNING: don't run with debug turned on in production!
 
 # TODO: Change your domain names here.
-# ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
+
+CSRF_TRUSTED_ORIGINS = ['https://nozimjondd.jprq.live ']
 
 # TODO: Change the default "from" email here.
 DEFAULT_FROM_EMAIL = "me@mydomain.com"
@@ -43,9 +45,11 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
 ]
 THIRD_PARTY_APPS = [
     'rest_framework',
+    'channels',
     # 'drf_yasg',
     # 'corsheaders',
     # 'mptt',
@@ -65,6 +69,7 @@ LOCAL_APPS = [
     'common',
     'main',
     'for_test',
+    'chat',
     # 'district',
     # 'user',
     # 'road',
@@ -73,6 +78,7 @@ LOCAL_APPS = [
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -145,7 +151,19 @@ if os.getenv("EMAIL_URL", ""):
 else:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-WSGI_APPLICATION = 'marks_projects.wsgi.application'
+WSGI_APPLICATION = 'marks_projects.wsgi.application'  # Web Server Gateway Interface
+# ASGI_APPLICATION = 'marks_projects.routing.ws_application'  # Asynchronous Server Gateway Interface
+ASGI_APPLICATION = 'marks_projects.asgi.ws_application'  # Asynchronous Server Gateway Interface
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            # "hosts": [CHANNEL_REDIS_HOST],
+            # "symmetric_encryption_keys": [SECRET_KEY],
+        },
+    },
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -171,6 +189,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
+CORS_ORIGIN_ALLOW_ALL = True
 
 USE_I18N = True
 

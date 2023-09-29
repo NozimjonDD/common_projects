@@ -167,6 +167,7 @@ EMAIL_HOST_PASSWORD = 'mgie bdkm cnqk szns'
 WSGI_APPLICATION = 'marks_projects.wsgi.application'  # Web Server Gateway Interface
 # ASGI_APPLICATION = 'marks_projects.routing.ws_application'  # Asynchronous Server Gateway Interface
 ASGI_APPLICATION = 'marks_projects.asgi.ws_application'  # Asynchronous Server Gateway Interface
+
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',

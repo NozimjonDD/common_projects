@@ -1,7 +1,8 @@
 from django.shortcuts import render
+from rest_framework import permissions
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import (
-    CreateAPIView, UpdateAPIView
+    CreateAPIView, UpdateAPIView, GenericAPIView
 )
 from django.core.mail import EmailMultiAlternatives, send_mail
 from django.utils.html import strip_tags
@@ -106,3 +107,24 @@ class SendEmail(APIView):
         # send_mail(subject, message, email_from, recipient_list)
 
         return Response(f'Report Sent to {recipient_list}', status=201)
+
+
+class SubscriptionAPIView(GenericAPIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, request, *args, **kwargs):
+        if self.request:
+            res1 = RequestCheckingCreation.objects.first()
+            student = Student.objects.get(id=1)
+            sub, _ = Student.objects.update_or_create(
+                teacher_id=3,
+                defaults={
+                    # "teacher_id": 2,
+                    # "course": 1,
+                    # "res": student.res.add(2),
+                    # "name": "name",
+                }
+            )
+            sub.res.add(res1)
+
+        return Response({"message": "class A", "count": 3333})

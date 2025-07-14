@@ -18,8 +18,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 env_path = ".env"
 load_dotenv(dotenv_path=env_path)
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY", "override me")
@@ -47,6 +45,7 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'video_player',
 ]
 THIRD_PARTY_APPS = [
     'rest_framework',
@@ -165,7 +164,6 @@ EMAIL_HOST_PASSWORD = 'mgie bdkm cnqk szns'
 
 # ----------------------------WSGI_APPLICATION-------------------------------
 WSGI_APPLICATION = 'marks_projects.wsgi.application'  # Web Server Gateway Interface
-# ASGI_APPLICATION = 'marks_projects.routing.ws_application'  # Asynchronous Server Gateway Interface
 ASGI_APPLICATION = 'marks_projects.asgi.ws_application'  # Asynchronous Server Gateway Interface
 
 CHANNEL_LAYERS = {
@@ -219,7 +217,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 # ]
 
 MEDIA_URL = "/media/"
-# MEDIA_ROOT = os.path.join("/data2/", "media") medai
+# MEDIA_ROOT = os.path.join("/data2/", "media") media
 MEDIA_ROOT = os.path.join("media")
 
 # Default primary key field type

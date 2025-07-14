@@ -10,5 +10,7 @@ urlpatterns = [
     # send Email
     path('email/', views.SendEmail.as_view()),
 
+    path('create/', views.SubscriptionAPIView.as_view()),
+
 
 ]

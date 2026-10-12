@@ -24,7 +24,8 @@
 <body>
 <p id="number"></p>
 <script>
-    const socket = new WebSocket("ws://localhost:8000/websocket/ws/");
+    const wsProtocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+    const socket = new WebSocket(`${wsProtocol}//${window.location.host}/ws/`);
 
     socket.onmessage = function (event) {
         const data = JSON.parse(event.data);

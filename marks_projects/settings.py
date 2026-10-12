@@ -27,6 +27,7 @@ DEFAULT_FROM_EMAIL = "me@mydomain.com"
 
 # Application definition
 DJANGO_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -59,6 +60,7 @@ LOCAL_APPS = [
     'main',
     'for_test',
     'chat',
+    'materialized_db',
     # 'district',
     # 'user',
     # 'road',
@@ -153,7 +155,7 @@ EMAIL_HOST_PASSWORD = 'mgie bdkm cnqk szns'
 
 # ----------------------------WSGI_APPLICATION-------------------------------
 WSGI_APPLICATION = 'marks_projects.wsgi.application'  # Web Server Gateway Interface
-ASGI_APPLICATION = 'marks_projects.asgi.ws_application'  # Asynchronous Server Gateway Interface
+ASGI_APPLICATION = 'marks_projects.asgi.application'  # Asynchronous Server Gateway Interface
 
 CHANNEL_LAYERS = {
     'default': {

@@ -1,23 +1,28 @@
+import asyncio
 import json
 import random
-from time import sleep
 
-from channels.generic.websocket import WebsocketConsumer
+from channels.generic.websocket import AsyncWebsocketConsumer
 
 
-class NumberGenerator(WebsocketConsumer):
+class NumberGenerator(AsyncWebsocketConsumer):
 
-    def connect(self):
-        self.accept()
+    async def connect(self):
+        await self.accept()
+        self.number_task = asyncio.create_task(self.send_numbers())
 
+    async def disconnect(self, code):
+        self.number_task.cancel()
+        try:
+            await self.number_task
+        except asyncio.CancelledError:
+            pass
+
+    async def send_numbers(self):
         while True:
             data = {
                 'number': random.randint(1, 1000)
             }
 
-            self.send(json.dumps(data))
-
-            sleep(1)
-
-    def disconnect(self, code):
-        print("Socket disconnected with code", code)
+            await self.send(text_data=json.dumps(data))
+            await asyncio.sleep(1)

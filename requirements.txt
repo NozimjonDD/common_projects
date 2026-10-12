@@ -1,14 +1,18 @@
-# Project runtime dependencies
-# Keep this list to the packages actually used by the project so it stays
-# compatible with the Django 4.2 + Channels setup in marks_projects/settings.py.
-
-Django~=4.2.25
-djangorestframework~=3.15.2
-channels~=4.0.0
-channels-redis~=4.1.0
-django-cors-headers~=4.3.1
-django-redis~=5.4.0
-psycopg2-binary~=2.9.10
-python-dotenv~=1.0.1
-redis>=5.0.0
-requests~=2.32.3
+asgiref==3.12.1
+certifi==2026.7.22
+channels==4.0.0
+channels-redis==4.1.0
+charset-normalizer==3.5.2
+Django==4.2.30
+django-cors-headers==4.3.1
+django-redis==5.4.0
+djangorestframework==3.15.2
+idna==3.20
+msgpack==1.2.3
+pillow==12.3.0
+psycopg2-binary==2.9.13
+python-dotenv==1.0.1
+redis==8.1.0
+requests==2.32.5
+sqlparse==0.6.0
+urllib3==2.8.0
